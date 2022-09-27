@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Simple-bank-JS</title>
+</head>
+<body>
+    <!--front page-->
+
+    <div id="login-form">
+        <h1 class="text-center">Welcome to my personal bank</h1>
+        <div class="submit-area">
+            <h4>Login</h4><br>
+            <input type="text" class="form-control" placeholder="Enter your email"><br>
+            <input type="password" class="form-control" placeholder="Enter your password"><br>
+            <button id="login" class="btn btn-success">Login</button>
+        </div>
+    </div>
+
+    <!--transaction area-->
+    <div id="tansaction-area" class="container">
+        <h1 class="transaction-header">Transaction area</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h3>Deposit</h3>
+                    <h1>$ <span id="show-deposit">00</span></h1>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h3>Withdraw</h3>
+                    <h1>$ <span id="show-withdraw">00</span></h1>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h3>Balance</h3>
+                    <h1>$ <span id="current-balance">1000</span></h1>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="amount-input">
+                    <h3>Deposit</h3>
+                <input id="depositAmount" class="form-control" type="text" placeholder="$ amount you want to deposit"><br>
+                <button id="addDeposit" class="btn btn-success">Depsit</button>
+
+                </div>
+                
+                </div>
+            <div class="col-md-6">
+                <div class="amount-input">
+                    <h3>Withdraw</h3>
+                <input id="withdrawAmount" class="form-control" type="text" placeholder="$ amount you want to withdraw"><br>
+                <button id="addWithdraw" class="btn btn-success">Withdraw</button>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+<!--javaScript-->
+    <script>
+        //login-button
+        const loginBtn= document.getElementById('login');
+        loginBtn.addEventListener('click', function(){
+            const loginForm= document.getElementById('login-form');
+            loginForm.style.display='none';
+            const transaction= document.getElementById('tansaction-area');
+            transaction.style.display='block';
+        })
+
+        //deposit button
+
+        const depositBtn = document.getElementById('addDeposit');
+        depositBtn.addEventListener('click',function(){
+            // const depositAmount = parseFloat(document.getElementById('depositAmount').value);
+            const depositAmount = getInputNumber('depositAmount');
+
+            // const showDeposit = parseFloat(document.getElementById('show-deposit').innerText) ;
+            // const addAmount = depositAmount+showDeposit;
+            // document.getElementById('show-deposit').innerText=addAmount;
+            updateSpanText ('show-deposit', depositAmount);
+
+            //document.getElementById('depositAmount').value='';
+            clearInputText('depositAmount');
+
+            // const currentBalance = parseFloat(document.getElementById('current-balance').innerText); 
+            // const addCurrentBalance= depositAmount+currentBalance;
+            // document.getElementById('current-balance').innerText= addCurrentBalance;
+            updateSpanText ('current-balance', depositAmount);
+
+        })
+
+        //withdraw button
+
+        const withdrawBtn=document.getElementById('addWithdraw');
+        withdrawBtn.addEventListener('click',function(){
+            //const withdrawAmount = parseFloat(document.getElementById('withdrawAmount').value);
+            const withdrawAmount = getInputNumber('withdrawAmount')
+
+            // const showWithdraw = parseFloat(document.getElementById('show-withdraw').innerText);
+            // const addAmount= withdrawAmount+ showWithdraw;
+            // document.getElementById('show-withdraw').innerText=addAmount;
+            updateSpanText ('show-withdraw', withdrawAmount);
+
+             //document.getElementById('withdrawAmount').value='';
+            clearInputText('withdrawAmount');
+
+        
+            // const currentBalance = parseFloat(document.getElementById('current-balance').innerText); 
+            // const addCurrentBalance=currentBalance - withdrawAmount ;
+            // document.getElementById('current-balance').innerText= addCurrentBalance;
+
+            updateSpanText ('current-balance',-1* withdrawAmount);
+
+
+        })
+
+        function getInputNumber(id){
+
+            const amount = parseFloat(document.getElementById(id).value);
+            return amount;
+
+
+        }
+
+        function updateSpanText (id, depositAmount){
+            const currentBalance = parseFloat(document.getElementById(id).innerText); 
+            const addCurrentBalance= depositAmount+currentBalance;
+            document.getElementById(id).innerText= addCurrentBalance;
+
+        }
+        
+        function clearInputText(id){
+            document.getElementById(id).value='';
+
+        }
+
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+</html>
